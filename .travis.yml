@@ -1,0 +1,22 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
+os: linux
+cache:
+    pip: true
+#matrix:
+#    include:
+#      - os: osx
+#        language: minimal
+#        before_install:
+#          - pip3 install -U pip
+#          - pip3 install -U pytest
+# command to install dependencies
+install:
+  - pip install -r requirements.txt && pip install -e .
+# command to run tests
+script:
+  - pytest ./tests/unit
