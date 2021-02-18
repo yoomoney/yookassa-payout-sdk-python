@@ -14,8 +14,8 @@ class Configuration:
     """
     A class representing the configuration.
     """
-    api_url = "https://calypso.yamoney.ru:9094/"
-    synonym_card_url = "https://paymentcard.yamoney.ru/"
+    api_url = "https://payouts.yookassa.ru:9094/"
+    synonym_card_url = "https://paymentcard.yoomoney.ru/"
     agent_id = None
     keychain = None
     logger = None
