@@ -18,13 +18,14 @@ def main():
 
     parser.version = yookassa_payout.__version__
     parser.add_argument('-getcsr', action='store_const', const=True, help='Генерация сертификата и ключей')
+    parser.add_argument('-k', dest="key", help='Для генерации сертификата с собственным ключом')
     parser.add_argument('-v', '--version', action='version', help='Показать версию программы и выйти')
     parser.add_argument('-h', '--help', action='help', help='Показать текст справки и выйти')
     args = parser.parse_args()
 
     if args.getcsr is not None:
         cli = CliClient()
-        cli.generate()
+        cli.generate(args.key)
         return 0
 
     parser.print_help()

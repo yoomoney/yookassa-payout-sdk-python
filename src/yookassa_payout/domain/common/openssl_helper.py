@@ -37,7 +37,10 @@ class OpenSSLHelper:
 
     @staticmethod
     def decrypt_pkcs7(data, cert):
-        cmd = ['openssl', 'smime', '-verify', '-inform', 'PEM', '-nointern', '-certfile', cert, '-CAfile', cert]
+        cmd = [
+            'openssl', 'smime', '-verify', '-noverify', '-inform', 'PEM', '-nointern',
+            '-certfile', cert, '-CAfile', cert
+        ]
 
         return OpenSSLHelper.exec_cmd(cmd, data)
 

@@ -64,9 +64,9 @@ from yookassa_payout.payout import Payout
 2. Create an instance of the `Organization` class with data for creating the request. All data must be entered in Latin.
 ```python
 org = Organization({
-    "org_name": "YooMoney",             # Organization Name (Latin)
+    "org_name": "YooMoney",              # Organization Name (Latin)
     "common_name": "/business/yoomoney", # Common Name, for example the name of your organization; must start with «/business/»
-    "email": "cms@yoomoney.ru"               # Email
+    "email": "cms@yoomoney.ru"           # Email
 })
 ```
 3. Create a CSR and a private key.

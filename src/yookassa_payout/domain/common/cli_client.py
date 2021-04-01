@@ -19,20 +19,19 @@ class CliClient:
         'email': {'name': 'Email адрес', 'hint': None, 'req': True, 'default': None, },
     }
 
-    def generate(self):
+    def generate(self, key_path=None):
         org = self.fill_org()
-        output = self.fill_output()
+        output = self.fill_output(key_path)
         password = self.fill_password()
-        self.print_data(org, output, password)
-        self.run_generator(password, org, output)
+        self.print_data(org, output)
+        self.run_generator(password, org, output, key_path)
 
-    def print_data(self, org, output, password):
+    def print_data(self, org, output):
         ret = C.c(C.CYELLOW2, "\nВаши данные:\n")
         for name, item in self.org_fields.items():
             attr = getattr(org, name)
             ret += "{}: {}\n".format(item['name'], C.c(C.CRED2, '-') if attr == '' else C.c(C.CGREEN2, attr))
         ret += "Каталог для генерации файлов: {}\n".format(C.c(C.CGREEN2, output))
-        ret += "Пароль для приватного ключа: {}\n".format(C.c(C.CGREEN2, "*".ljust(len(password), '*')))
         print(ret)
 
     def fill_org(self):
@@ -70,16 +69,21 @@ class CliClient:
 
         return org
 
-    def fill_output(self):
+    def fill_output(self, key_path=None):
         default = os.getcwd()
-        prompt = "Введите каталог для privateKey и request.csr [{}]: ".format(default)
-        print(prompt)
+
+        prompt = "Введите каталог для "
+        if key_path is None:
+            prompt += "privateKey и "
+        prompt += "request.csr [{}]: "
+
+        print(prompt.format(default))
         val = input()
 
         return default if not val else str(val)
 
     def fill_password(self):
-        prompt = "Введите параль для приватного ключа {}: ".format(C.c(C.CRED2, '*'))
+        prompt = "Введите пароль для приватного ключа {}: ".format(C.c(C.CRED2, '*'))
         print(prompt)
         while True:
             val = getpass()
@@ -91,7 +95,7 @@ class CliClient:
 
         return str(val)
 
-    def run_generator(self, password, org, output):
+    def run_generator(self, password, org, output, key_path=None):
         default = "no"
         prompt = "Вы готовы сгенерировать файлы? (yes|no) [{}]: ".format(default)
         print(prompt)
@@ -99,13 +103,18 @@ class CliClient:
 
         if val == 'yes':
             gen = GeneratorCsr(password, org, abspath(output))
-            gen.generate_all()
+            if key_path is not None:
+                gen.generate_csr_with_private_key(abspath(key_path))
+            else:
+                gen.generate_all()
 
-            print(C.c(C.CYELLOW2, "\nГенерация выполнена!:"))
+            print(C.c(C.CYELLOW2, "\nГенерация выполнена!"))
             for ftype, fdata in gen.get_file_list().items():
+                if key_path is not None and ftype == 'FILE_KEY':
+                    continue
                 print("{}: {}".format(ftype, C.c(C.CGREEN2 if fdata['exist'] else C.CRED2, fdata['path'])))
         else:
-            print(C.c(C.CRED2, "Вы отмменили генерацию!"))
+            print(C.c(C.CRED2, "Вы отменили генерацию!"))
 
 
 class C:

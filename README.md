@@ -84,9 +84,9 @@ from yookassa_payout.payout import Payout
 2. Создайте экземпляр класса `Organization` с данными для создания заявки. Все данные нужно вводить латиницей.
 ```python
 org = Organization({
-    "org_name": "YooMoney",             # Название вашей организации (латиницей)
+    "org_name": "YooMoney",              # Название вашей организации (латиницей)
     "common_name": "/business/yoomoney", # Имя сервера без пробелов, например название вашей организации; должно начинаться с «/business/»
-    "email": "cms@yoomoney.ru"               # Адрес электронной почты
+    "email": "cms@yoomoney.ru"           # Адрес электронной почты
 })
 ```
 
