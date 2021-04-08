@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from yookassa_payout.domain.models.recipients.recipient import Recipient
+from yookassa_payout.domain.models.recipients.recipient_factory import RecipientFactory
 from yookassa_payout.domain.request.request_object import RequestObject
 
 
@@ -10,6 +12,7 @@ class DepositionRequest(RequestObject):
     __amount = None
     __currency = None
     __contract = None
+    __payment_params = None
 
     def __init__(self, *args, **kwargs):
         super(DepositionRequest, self).__init__(*args, **kwargs)
@@ -63,14 +66,30 @@ class DepositionRequest(RequestObject):
     def contract(self, value):
         self.__contract = str(value)
 
+    @property
+    def payment_params(self):
+        return self.__payment_params
+
+    @payment_params.setter
+    def payment_params(self, value):
+        if isinstance(value, Recipient):
+            self.__payment_params = value
+        elif isinstance(value, dict):
+            self.__payment_params = RecipientFactory.factory(value)
+        else:
+            raise TypeError('Invalid payment_params value type')
+
     def validate(self):
         super(DepositionRequest, self).validate()
         if not self.agent_id:
             self.set_validation_error('Deposition agent_id not specified')
         if not self.client_order_id:
             self.set_validation_error('Deposition client_order_id not specified')
+        if not self.payment_params:
+            self.set_validation_error('Deposition payment_params not specified')
 
     def map(self):
+        self.validate()
         _map = super(DepositionRequest, self).map()
         _map.update({
             "agentId": self.agent_id,
@@ -79,6 +98,6 @@ class DepositionRequest(RequestObject):
             "amount": format(self.amount, ".2f"),
             "currency": self.currency,
             "contract": self.contract,
+            "paymentParams": self.payment_params.map()
         })
         return _map
-

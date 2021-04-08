@@ -9,5 +9,6 @@ class TestDepositionRequest(DepositionRequest):
         self.request_name = 'testDeposition'
 
     def map(self):
+        self.validate()
         _map = super(TestDepositionRequest, self).map()
         return {self.request_name + 'Request': _map}

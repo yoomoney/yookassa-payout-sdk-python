@@ -71,6 +71,9 @@ class TestTestDepositionRequest(unittest.TestCase):
                 "amount": format(10.0, ".2f"),
                 "currency": Currency.RUB,
                 "contract": "Зачисление на кошелек",
+                "paymentParams": {
+                    "pof_offerAccepted": ['1'],
+                }
             }
         })
 
@@ -83,4 +86,7 @@ class TestTestDepositionRequest(unittest.TestCase):
             "amount": 10.00,
             "currency": Currency.RUB,
             "contract": "Зачисление на кошелек",
+            "payment_params": {
+                "pof_offer_accepted": True,
+            }
         }

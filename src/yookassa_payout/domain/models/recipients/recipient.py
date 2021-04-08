@@ -25,6 +25,7 @@ class Recipient(BaseObject):
         raise ValueError(message)
 
     def map(self):
+        self.validate()
         return {
             "pof_offerAccepted": [str(int(self.pof_offer_accepted))]
         }
