@@ -1,3 +1,6 @@
+### v2.3.1 от 21.09.2021
+* Поддержка сбора данных с помощью формы ЮKassa
+
 ### v2.3.0 от 08.04.2021
 * Для DepositionRequest paymentParams.pof_offerAccepted обязателен
 

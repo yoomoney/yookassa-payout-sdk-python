@@ -151,37 +151,48 @@ class BankCardRecipient(Recipient):
 
     def validate(self):
         super(BankCardRecipient, self).validate()
+
         if not self.skr_destination_card_synonym:
             self.set_validation_error('BankCardRecipient skr_destination_card_synonym not specified')
-        if not self.pdr_first_name:
-            self.set_validation_error('BankCardRecipient pdr_first_name not specified')
-        if not self.pdr_last_name:
-            self.set_validation_error('BankCardRecipient pdr_last_name not specified')
-        if not self.pdr_doc_number:
-            self.set_validation_error('BankCardRecipient pdr_doc_number not specified')
-        if not self.pdr_doc_issue_date:
-            self.set_validation_error('BankCardRecipient pdr_doc_issue_date not specified')
-        if not self.pdr_country:
-            self.set_validation_error('BankCardRecipient pdr_country not specified')
-        if not self.pdr_birth_date:
-            self.set_validation_error('BankCardRecipient pdr_birth_date not specified')
-        if not self.sms_phone_number:
-            self.set_validation_error('BankCardRecipient sms_phone_number not specified')
+
+        if not self.cps_ym_account:
+            if not self.pdr_first_name:
+                self.set_validation_error('BankCardRecipient pdr_first_name not specified')
+            if not self.pdr_last_name:
+                self.set_validation_error('BankCardRecipient pdr_last_name not specified')
+            if not self.pdr_doc_number:
+                self.set_validation_error('BankCardRecipient pdr_doc_number not specified')
+            if not self.pdr_doc_issue_date:
+                self.set_validation_error('BankCardRecipient pdr_doc_issue_date not specified')
+            if not self.pdr_country:
+                self.set_validation_error('BankCardRecipient pdr_country not specified')
+            if not self.pdr_birth_date:
+                self.set_validation_error('BankCardRecipient pdr_birth_date not specified')
+            if not self.sms_phone_number:
+                self.set_validation_error('BankCardRecipient sms_phone_number not specified')
 
     def map(self):
         _map = super(BankCardRecipient, self).map()
-        _map.update({
-            "skr_destinationCardSynonim": [self.skr_destination_card_synonym],
-            "smsPhoneNumber": [self.sms_phone_number],
-            "pdr_firstName": [self.pdr_first_name],
-            "pdr_middleName": [self.pdr_middle_name],
-            "pdr_lastName": [self.pdr_last_name],
-            "pdr_docNumber": [self.pdr_doc_number],
-            "pdr_docIssueDate": [self.pdr_doc_issue_date.strftime('%d.%m.%Y')],
-            "pdr_postcode": [str(self.pdr_postcode)],
-            "pdr_country": [str(self.pdr_country)],
-            "pdr_city": [self.pdr_city],
-            "pdr_address": [self.pdr_address],
-            "pdr_birthDate": [self.pdr_birth_date.strftime('%d.%m.%Y')],
-        })
+
+        if self.cps_ym_account:
+            _map.update({
+                "skr_destinationCardSynonim": [self.skr_destination_card_synonym],
+                "cps_ymAccount": [self.cps_ym_account],
+            })
+        else:
+            _map.update({
+                "skr_destinationCardSynonim": [self.skr_destination_card_synonym],
+                "smsPhoneNumber": [self.sms_phone_number],
+                "pdr_firstName": [self.pdr_first_name],
+                "pdr_middleName": [self.pdr_middle_name],
+                "pdr_lastName": [self.pdr_last_name],
+                "pdr_docNumber": [self.pdr_doc_number],
+                "pdr_docIssueDate": [self.pdr_doc_issue_date.strftime('%d.%m.%Y')],
+                "pdr_postcode": [str(self.pdr_postcode)],
+                "pdr_country": [str(self.pdr_country)],
+                "pdr_city": [self.pdr_city],
+                "pdr_address": [self.pdr_address],
+                "pdr_birthDate": [self.pdr_birth_date.strftime('%d.%m.%Y')],
+            })
+
         return _map

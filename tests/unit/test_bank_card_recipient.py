@@ -139,10 +139,6 @@ class TestBankCardRecipient(unittest.TestCase):
         with self.assertRaises(ValueError):
             rec.validate()
 
-        rec.cps_ym_account = '79653457676'
-        with self.assertRaises(ValueError):
-            rec.validate()
-
         rec.pdr_first_name = 'Владимир'
         with self.assertRaises(ValueError):
             rec.validate()
@@ -200,7 +196,6 @@ class TestBankCardRecipient(unittest.TestCase):
         rec = BankCardRecipient({
             'pof_offer_accepted': True,
             'skr_destination_card_synonym': 'oALesdd_h_YT6pzpJ10Kn5aB.SC.000.201906',
-            'cps_ym_account': '79653457676',
             'pdr_first_name': 'Владимир',
             'pdr_middle_name': 'Владимирович',
             'pdr_last_name': 'Владимиров',
@@ -227,4 +222,15 @@ class TestBankCardRecipient(unittest.TestCase):
             "pdr_city": [rec.pdr_city],
             "pdr_address": [rec.pdr_address],
             "pdr_birthDate": [rec.pdr_birth_date.strftime('%d.%m.%Y')],
+        })
+
+        rec = BankCardRecipient({
+            'pof_offer_accepted': True,
+            'skr_destination_card_synonym': 'oALesdd_h_YT6pzpJ10Kn5aB.SC.000.201906',
+            'cps_ym_account': '79653457676',
+        })
+        self.assertEqual(rec.map(), {
+            "pof_offerAccepted": [str(int(rec.pof_offer_accepted))],
+            "skr_destinationCardSynonim": [rec.skr_destination_card_synonym],
+            'cps_ymAccount': [rec.cps_ym_account],
         })
