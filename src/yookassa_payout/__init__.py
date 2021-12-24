@@ -2,4 +2,4 @@
 
 __author__ = "YooMoney"
 __email__ = 'cms@yoomoney.ru'
-__version__ = '2.3.1'
+__version__ = '2.3.2'
