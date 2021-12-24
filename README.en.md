@@ -1,4 +1,4 @@
-# YooKassa Payout API Python Client Library
+# YooMoney Payout API Python Client Library
 
 [![Build Status](https://travis-ci.org/yoomoney/yookassa-payout-sdk-python.svg?branch=master)](https://travis-ci.org/yoomoney/yookassa-payout-sdk-python)
 [![Latest Stable Version](https://img.shields.io/pypi/v/yookassa-payout.svg)](https://pypi.org/project/yookassa-payout/)
@@ -7,18 +7,18 @@
 
 [Russian](https://github.com/yoomoney/yookassa-payout-sdk-python/blob/master/README.md) | English
 
-Client to work on [Mass Payment Protocol](https://yookassa.ru/docs/payouts/api/using-api/basics?lang=en)
+Client to work on the [Protocol for mass payouts](https://yookassa.ru/docs/payouts/api/using-api/basics?lang=en)
 
 ## Opportunities
 You can with this SDK:
-1. [Generate a certificate](https://yookassa.ru/docs/payment-solution/supplementary/security?lang=en)﻿ for interaction with YooKassa.
+1. [Generate a certificate](https://yookassa.ru/docs/payment-solution/supplementary/security?lang=en) for interaction with YooMoney.
 2. [Transfer money](https://yookassa.ru/docs/payouts/api/make-deposition/basics?lang=en) to individuals for wallets in YooMoney, mobile phone numbers, Bank cards and accounts (makeDeposition).
 3. [To test the possibility of transfer of remittances](https://yookassa.ru/docs/payouts/api/make-deposition/basics?lang=en#test-deposition) to wallets in YooMoney (testDeposition).
-4. [Keep track of the balance of payments](https://yookassa.ru/docs/payouts/api/balance?lang=en) (balance).
+4. [Keep track of the balance of payouts](https://yookassa.ru/docs/payouts/api/balance?lang=en) (balance).
 5. [Receive notifications](https://yookassa.ru/docs/payouts/api/error-deposition-notification?lang=en) the unsuccessful status of transfers to a Bank account, card, or mobile phone (errorDepositionNotification).
 
 ## Requirements
-* Python 3.5 (и выше)
+* Python 3.5 (or later version)
 * pip
 
 ## Installation
@@ -107,7 +107,7 @@ In response to the request, the Manager will send a file with the certificate wi
 Place the received certificate on your server
 
 ## Start of work
-1. Determine what types of payments you need and whether you want to check your balance.
+1. Determine what types of payouts you need and whether you want to check your balance.
 2. Import required classes
 ```python
 from yookassa_payout.domain.common.keychain import KeyChain
@@ -126,9 +126,9 @@ keychain = KeyChain('publicCert.cer', 'privateCert.pem', 'password')
 Configuration.configure('000000', keychain)
 ```
 
-6. Call the appropriate method. [More information about making payments](https://yookassa.ru/docs/payouts/api/using-api/basics?lang=en)
+6. Call the appropriate method. [More information about making payouts](https://yookassa.ru/docs/payouts/api/using-api/basics?lang=en)
 
-#### Example of payment to a Bank account
+#### Example of payout to a Bank account
 ```python
 # Importing classes
 from yookassa_payout.configuration import Configuration
@@ -168,6 +168,6 @@ request.client_order_id = '215d8da0-000f-50be-b000-0003308c89be'
 request.request_dt = '2020-03-04T15:39:45.456+03:00'
 request.payment_params = recipient
 
-# The carrying out of the payment
+# The carrying out of the payout
 result = Payout.create_deposition(request)
 ```

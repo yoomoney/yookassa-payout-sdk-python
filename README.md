@@ -26,7 +26,7 @@ Russian | [English](https://github.com/yoomoney/yookassa-payout-sdk-python/blob/
 
 1. Установите pip.
 2. В консоли выполните команду
-```python
+```bash
 pip install yookassa-payout
 ```
 
