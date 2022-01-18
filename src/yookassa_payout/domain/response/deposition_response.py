@@ -8,6 +8,8 @@ class DepositionResponse(ResponseObject):
     __error = None
     __tech_message = None
     __identification = None
+    __income_receipt_id = None
+    __income_receipt_link = None
 
     @property
     def client_order_id(self):
@@ -41,6 +43,22 @@ class DepositionResponse(ResponseObject):
     def identification(self, value):
         self.__identification = str(value)
 
+    @property
+    def income_receipt_id(self):
+        return self.__income_receipt_id
+
+    @income_receipt_id.setter
+    def income_receipt_id(self, value):
+        self.__income_receipt_id = str(value)
+
+    @property
+    def income_receipt_link(self):
+        return self.__income_receipt_link
+
+    @income_receipt_link.setter
+    def income_receipt_link(self, value):
+        self.__income_receipt_link = str(value)
+
     def validate(self):
         if not self.client_order_id:
             self.set_validation_error('DepositionResponse client_order_id not specified')
@@ -56,5 +74,7 @@ class DepositionResponse(ResponseObject):
             "error": "error",
             "techMessage": "tech_message",
             "identification": "identification",
+            "incomeReceiptId": "income_receipt_id",
+            "incomeReceiptLink": "income_receipt_link",
         })
         return _map

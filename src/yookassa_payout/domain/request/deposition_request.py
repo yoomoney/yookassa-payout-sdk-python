@@ -9,6 +9,7 @@ class DepositionRequest(RequestObject):
     __agent_id = None
     __client_order_id = None
     __dst_account = None
+    __itn = None
     __amount = None
     __currency = None
     __contract = None
@@ -41,6 +42,14 @@ class DepositionRequest(RequestObject):
     @dst_account.setter
     def dst_account(self, value):
         self.__dst_account = str(value)
+
+    @property
+    def itn(self):
+        return self.__itn
+
+    @itn.setter
+    def itn(self, value):
+        self.__itn = str(value)
 
     @property
     def amount(self):
@@ -100,4 +109,9 @@ class DepositionRequest(RequestObject):
             "contract": self.contract,
             "paymentParams": self.payment_params.map()
         })
+        if self.itn:
+            _map.update({
+                "itn": self.itn,
+            })
+
         return _map

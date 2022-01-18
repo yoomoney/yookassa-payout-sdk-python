@@ -13,12 +13,16 @@ class TestDepositionResponse(unittest.TestCase):
         req.error = 123456
         req.tech_message = 'tech_message'
         req.identification = 'identification'
+        req.income_receipt_id = 'income_receipt_id'
+        req.income_receipt_link = 'income_receipt_link'
 
         self.assertEqual({
             'client_order_id': '215d8da0-000f-50be-b000-0003308c89be',
             'error': 123456,
             'tech_message': 'tech_message',
             'identification': 'identification',
+            'income_receipt_id': 'income_receipt_id',
+            'income_receipt_link': 'income_receipt_link',
         }, dict(req))
 
     def test_response_setters(self):
@@ -73,4 +77,6 @@ class TestDepositionResponse(unittest.TestCase):
             "error": "error",
             "techMessage": "tech_message",
             "identification": "identification",
+            "incomeReceiptId": "income_receipt_id",
+            "incomeReceiptLink": "income_receipt_link",
         })

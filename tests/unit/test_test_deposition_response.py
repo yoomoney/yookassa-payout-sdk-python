@@ -74,4 +74,6 @@ class TestTestDepositionResponse(unittest.TestCase):
             "error": "error",
             "techMessage": "tech_message",
             "identification": "identification",
+            'incomeReceiptId': 'income_receipt_id',
+            'incomeReceiptLink': 'income_receipt_link',
         })
